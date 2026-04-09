@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 
@@ -15,8 +16,11 @@ public class PlayerController : MonoBehaviour
     private float linearVelocity;
     private int score;
 
+    private LE9_Input playerInput; 
+
     private void Awake()
     {
+        playerInput = new LE9_Input();
         rb2D = GetComponent<Rigidbody2D>();
     }
 
@@ -26,9 +30,24 @@ public class PlayerController : MonoBehaviour
         SetScore(0);
     }
 
-    private void Update()
+
+    private void OnEnable()
     {
-        input = Input.GetAxisRaw("Horizontal");
+        playerInput.Player.Enable();
+        playerInput.Player.Move.performed += Move;
+        playerInput.Player.Move.canceled += Move;
+    }
+
+    private void OnDisable()
+    {
+        playerInput.Player.Move.performed -= Move;
+        playerInput.Player.Move.canceled -= Move;
+        playerInput.Player.Disable();
+    }
+
+    private void Move (InputAction.CallbackContext context)
+    {
+        input = context.ReadValue<float>();
     }
 
     private void FixedUpdate()
