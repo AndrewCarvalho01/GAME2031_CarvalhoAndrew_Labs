@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveForce = 5f;
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private float pointInterval = 10f;
 
     private Rigidbody2D rb2D;
 
@@ -16,7 +17,9 @@ public class PlayerController : MonoBehaviour
     private float linearVelocity;
     private int score;
 
-    private LE9_Input playerInput; 
+    private LE9_Input playerInput;
+
+    private float timeSinceLastPoint = 0f;
 
     private void Awake()
     {
@@ -76,6 +79,17 @@ public class PlayerController : MonoBehaviour
     public void IncrementScore(int incrementor)
     {
        SetScore(this.score + incrementor);
+    }
+
+    private void Update()
+    {
+        timeSinceLastPoint += Time.deltaTime;
+        if (timeSinceLastPoint >= pointInterval)
+        {
+            IncrementScore(10);
+            timeSinceLastPoint = 0f;
+            print("Lasted ten seconds, 10 points!");
+        }
     }
 }
 

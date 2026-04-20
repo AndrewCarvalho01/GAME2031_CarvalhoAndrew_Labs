@@ -25,6 +25,11 @@ public class EnemyObject : MonoBehaviour
                 AudioSource.PlayClipAtPoint(explosionSound, transform.position);
             GameManager.Instance.GameOver();
         }
+        else
+        {
+            GameManager.Instance.AwardPoints(1);
+            print("1 Point");
+        }
         Destroy(gameObject);
     }
 }

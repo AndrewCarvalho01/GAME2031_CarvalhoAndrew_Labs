@@ -37,8 +37,6 @@ public class ObjectSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-
-
         return new Vector3(Random.Range(xSpawnRange.x, xSpawnRange.y), ySpawnPosition, 0.0f);
     }
 }

@@ -41,4 +41,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void AwardPoints(int points)
+    {
+        FindObjectOfType<PlayerController>().IncrementScore(points);
+    }
 }
